@@ -5,7 +5,7 @@
 # Usage: opencli plan-apply <NEW_PLAN_ID> <USERNAME> 
 # Author: Petar Ćurić, Stefan Pejčić
 # Created: 17.11.2023
-# Last Modified: 23.04.2026
+# Last Modified: 28.04.2026
 # Company: openpanel.com
 # Copyright (c) openpanel.com
 # 
@@ -114,7 +114,7 @@ for username in "${usernames[@]}"; do
 
     # 4. get docker context and UID
     read -r current_plan_id context < <(mysql --defaults-extra-file="$config_file" -D "$mysql_database" -N -B -e "SELECT plan_id, server FROM users WHERE username = '$username'")
-    user_id=$(id -u "$username")
+    user_id=$(id -u "$context")
     # user_id=$(ssh -o LogLevel=ERROR $key_flag "root@$node_ip_address" "id -u $username" 2>/dev/null)
 
     # 5. if cpu / ram, then create the user slice first

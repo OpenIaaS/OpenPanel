@@ -5,7 +5,7 @@
 # Usage: opencli domains-docroot <DOMAIN_NAME> [update </var/www/html/>] --debug
 # Author: Stefan Pejcic
 # Created: 10.02.2025
-# Last Modified: 23.04.2026
+# Last Modified: 28.04.2026
 # Company: openpanel.com
 # Copyright (c) openpanel.com
 # 
@@ -123,7 +123,7 @@ get_webserver_for_user(){
 vhost_file_edit() {
 	vhost_file=/home/${context}/docker-data/volumes/${context}_webserver_data/_data/${domain}.conf
 	sed -i -E 's|(/var/www/html/[^>;]*)|'"$new_docroot"'|g' $vhost_file > /dev/null 2>&1
-	docker --context $context restart $ws > /dev/null 2>&1
+	docker --context $context restart $WEB_SERVER > /dev/null 2>&1
 }
 
 get_user() {

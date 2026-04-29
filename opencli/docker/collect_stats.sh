@@ -5,7 +5,7 @@
 # Usage: opencli docker-collect_stats
 # Author: Stefan Pejcic
 # Created: 22.07.2025
-# Last Modified: 23.04.2026
+# Last Modified: 28.04.2026
 # Company: openpanel.com
 # Copyright (c) openpanel.com
 # 
@@ -250,9 +250,14 @@ fi
 
 SERVER_MEMORY=$(grep MemTotal /proc/meminfo | awk '{print $2 * 1024}')  # KB -> bytes
 SERVER_CPUS=$(nproc)
+# https://community.openpanel.org/d/288-does-collect-statssh-part-of-openpanel
+MAX_JOBS=$(( SERVER_CPUS * 2 ))
 
 for user in "${users[@]}"; do
     process_user "$user" &
+    while [[ $(jobs -r | wc -l) -ge $MAX_JOBS ]]; do
+      sleep 0.1
+    done
 done
 wait
 
