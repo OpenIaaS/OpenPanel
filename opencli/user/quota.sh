@@ -5,7 +5,7 @@
 # Usage: opencli user-quota <username|--all>
 # Author: Stefan Pejcic
 # Created: 16.11.2023
-# Last Modified: 28.04.2026
+# Last Modified: 29.04.2026
 # Company: openpanel.com
 # Copyright (c) openpanel.com
 # 
@@ -309,10 +309,7 @@ main() {
 
     # 4. process a single OR all users
     case "${1:-}" in
-        ""|"help")
-            usage
-            exit 1
-            ;;
+        ""|"help") usage; exit 1 ;;
         "--all")
             (( $# == 1 )) || { log_error "Invalid number of arguments"; usage; exit 1; }
             process_all_users && log "DONE: All users processed successfully" || exit_code=1
